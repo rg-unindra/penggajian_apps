@@ -25,7 +25,7 @@ public  class Koneksi {
     
     public void start() {
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             // INISIALISASI CONNECTION
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName, "root", "");
             createStatement();
@@ -39,8 +39,10 @@ public  class Koneksi {
        ResultSet rs = null;
        if(statement == null) {
            try {
+               
                createStatement();
            } catch (SQLException ex) {
+               System.out.println("Execute Query Exception => " + query + ", Exception " + ex);
                Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
            }
        }
@@ -67,6 +69,7 @@ public  class Koneksi {
         try {
             statement.execute(query);
         } catch (SQLException ex) {
+            System.out.println("Execute Query Exception => " + query + ", Exception " + ex);
             Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

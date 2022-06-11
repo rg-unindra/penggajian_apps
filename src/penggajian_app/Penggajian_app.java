@@ -5,6 +5,9 @@
  */
 package penggajian_app;
 
+import authentiocation.FormLogin;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Farhan Fadila
@@ -15,7 +18,8 @@ public class Penggajian_app {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+         JFrame formLogin = new FormLogin();
+         formLogin.setVisible(true);
     }
     
 }

@@ -7,8 +7,7 @@ package authentiocation;
 
 import Database.Koneksi;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.Instant;
 
 /**
  *
@@ -21,20 +20,24 @@ public class AuthenticationController extends Koneksi {
         if(con == null) {
             start();
         }
+        checkCurrentSession();
     }
     
     
     boolean login(String username, String password) {
      try {
-        ResultSet existUser = executeQuery("SELECT * FROM user WHERE username = " + username + " AND passoword = " + password);
+        ResultSet existUser = executeQuery("SELECT * FROM `user` WHERE `username` = '" + username + "' AND `password` = '" + password + "'");
          
        if(existUser.next()) {
            user = new User(existUser.getInt(1), existUser.getString(2));
+           
+           save();
            return true;
        } else {
            throw new Exception("User not found!");
        }
      } catch(Exception ex) {
+         System.out.println("Login Exception " + ex);
         return false;
      }
     }
@@ -45,17 +48,30 @@ public class AuthenticationController extends Koneksi {
     }
     
     void checkCurrentSession() {
-        
+        try {
+            ResultSet currentSession = executeQuery("SELECT * FROM `session`");
+            
+            if(currentSession.next()) {
+                int id =  currentSession.getInt(2);
+                ResultSet existUser = executeQuery("SELECT * FROM `user` WHERE `id_user` = '" + id + "'");
+                if(existUser.next()) {
+                    user = new User(existUser.getInt(1), existUser.getString(2));
+                    System.out.println("Succefully Loggin from Cache => " + user);
+                }
+            }
+        } catch(Exception ex) {
+            System.out.println(ex);
+        }
     }
     
     void save() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        Object[] sessionObject = {user.id,timeStamp};
-        executeQuery2("INSERT INTO session (id_user, login_time) VALUES " + objectToString(sessionObject));
+        long currentTimestamp = Instant.now().toEpochMilli();
+        Object[] sessionObject = {user.id,currentTimestamp};
+        executeQuery2("INSERT INTO session (id_user, login_time) " + objectToString(sessionObject));
     }
     
     void logout() {
         user = null;
-        executeQuery2("DELETE FROM session WHERE id_user = " + user.id_user);
+        executeQuery2("DELETE FROM session WHERE id_user = " + user.id);
     }
 }
