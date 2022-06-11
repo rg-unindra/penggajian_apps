@@ -54,5 +54,8 @@ public class AuthenticationController extends Koneksi {
         executeQuery2("INSERT INTO session (id_user, login_time) VALUES " + objectToString(sessionObject));
     }
     
-    void logout() {}
+    void logout() {
+        user = null;
+        executeQuery2("DELETE FROM session WHERE id_user = " + user.id_user);
+    }
 }
