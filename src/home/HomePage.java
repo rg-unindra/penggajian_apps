@@ -10,6 +10,7 @@ import authentiocation.FormLogin;
 import jabatan.FormJabatan;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import karyawan.FormKaryawan;
 
 /**
  *
@@ -24,6 +25,21 @@ public class HomePage extends javax.swing.JFrame {
         initComponents();
         authenticationController = new AuthenticationController();
     }
+    
+    private void navigasi(String menu) {
+        JFrame frame;
+        
+        switch(menu) {
+            case "karyawan":
+                frame = new FormKaryawan();
+            break;
+            default:
+                frame = new FormJabatan();
+        }
+        
+       frame.setAlwaysOnTop(true);
+       frame.setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,7 +52,16 @@ public class HomePage extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btn_jabatan = new javax.swing.JButton();
+        ic_jabatan = new javax.swing.JLabel();
+        lbl_jabatan = new javax.swing.JLabel();
+        lbl_karyawan = new javax.swing.JLabel();
+        ic_karayawan = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,38 +78,118 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
-        btn_jabatan.setText("Jabatan");
-        btn_jabatan.addMouseListener(new java.awt.event.MouseAdapter() {
+        ic_jabatan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_jabatan.png"))); // NOI18N
+        ic_jabatan.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        ic_jabatan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_jabatanMousePressed(evt);
+                ic_jabatanMousePressed(evt);
             }
         });
+
+        lbl_jabatan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_jabatan.setText("Jabatan");
+        lbl_jabatan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lbl_jabatanMousePressed(evt);
+            }
+        });
+
+        lbl_karyawan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_karyawan.setText("Karyawan");
+        lbl_karyawan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lbl_karyawanMousePressed(evt);
+            }
+        });
+
+        ic_karayawan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ic_karayawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_karyawan.png"))); // NOI18N
+        ic_karayawan.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        ic_karayawan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ic_karayawanMousePressed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Kegiatan");
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_kegiatan.png"))); // NOI18N
+        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("Terlamat");
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_terlamat.png"))); // NOI18N
+        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("Penggajian");
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_penggajian.png"))); // NOI18N
+        jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(246, 246, 246)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(btn_jabatan)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(120, 120, 120)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(lbl_karyawan)
+                    .addComponent(ic_karayawan)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(lbl_jabatan)
+                    .addComponent(ic_jabatan)
+                    .addComponent(jLabel1))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
-                .addGap(211, 211, 211)
-                .addComponent(btn_jabatan)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(jButton1)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel1)
+                .addGap(64, 64, 64)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ic_jabatan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_jabatan))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ic_karayawan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_karyawan)))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         pack();
@@ -104,11 +209,21 @@ public class HomePage extends javax.swing.JFrame {
       
     }//GEN-LAST:event_jButton1MousePressed
 
-    private void btn_jabatanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_jabatanMousePressed
-       JFrame jabatan = new FormJabatan();
-       jabatan.setAlwaysOnTop(true);
-       jabatan.setVisible(true);
-    }//GEN-LAST:event_btn_jabatanMousePressed
+    private void ic_jabatanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ic_jabatanMousePressed
+       navigasi("jabatan");
+    }//GEN-LAST:event_ic_jabatanMousePressed
+
+    private void lbl_jabatanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_jabatanMousePressed
+       navigasi("jabatan");
+    }//GEN-LAST:event_lbl_jabatanMousePressed
+
+    private void lbl_karyawanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_karyawanMousePressed
+       navigasi("karyawan");
+    }//GEN-LAST:event_lbl_karyawanMousePressed
+
+    private void ic_karayawanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ic_karayawanMousePressed
+       navigasi("karyawan");
+    }//GEN-LAST:event_ic_karayawanMousePressed
 
     /**
      * @param args the command line arguments
@@ -146,8 +261,17 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_jabatan;
+    private javax.swing.JLabel ic_jabatan;
+    private javax.swing.JLabel ic_karayawan;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lbl_jabatan;
+    private javax.swing.JLabel lbl_karyawan;
     // End of variables declaration//GEN-END:variables
 }

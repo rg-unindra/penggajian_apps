@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * @author Farhan Fadila
  */
 public class JabatanController  extends Koneksi{
-     
+    List<Jabatan> jabatan;
     public JabatanController() {
       if(con == null) {
             start();
@@ -49,9 +49,13 @@ public class JabatanController  extends Koneksi{
     }
     
     
-    public List<Jabatan> dataJabatan() {
+    public List<Jabatan> dataJabatan(boolean loadFromCache) {
             List<Jabatan> temp = new ArrayList<>();
-        
+            
+            if(loadFromCache && jabatan != null) {
+                return jabatan;
+            }
+            
             ResultSet result = executeQuery("SELECT * FROM `jabatan`");
 
             try {
@@ -61,6 +65,8 @@ public class JabatanController  extends Koneksi{
             } catch (SQLException ex) {
                Logger.getLogger(JabatanController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            jabatan = temp;
 
             return temp;
     }

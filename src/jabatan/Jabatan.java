@@ -10,10 +10,10 @@ package jabatan;
  * @author Farhan Fadila
  */
 public class Jabatan {
-    String id;
-    String namaJabatan;
-    long gajiPokok;
-    long tunjangan;
+    public  String id;
+    public String namaJabatan;
+    public long gajiPokok;
+    public long tunjangan;
     
     public Jabatan(String id, String namaJabatan, long gajiPokok, long tunjangan) {
         this.id = id;

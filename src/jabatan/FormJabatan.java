@@ -41,7 +41,7 @@ public class FormJabatan extends javax.swing.JFrame {
        model.getDataVector().removeAllElements();
        model.fireTableDataChanged();
        try {
-            List<Jabatan> jabatan = jabatanController.dataJabatan();
+            List<Jabatan> jabatan = jabatanController.dataJabatan(false);
             
             
             for(int i = 0; i < jabatan.size(); i++) {
@@ -94,7 +94,7 @@ public class FormJabatan extends javax.swing.JFrame {
         btn_edit = new javax.swing.JButton();
         btn_tutup = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Form Jabatan");
 
