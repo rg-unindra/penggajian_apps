@@ -13,7 +13,7 @@ import java.time.Instant;
  *
  * @author Farhan Fadila
  */
-public class AuthenticationController extends Koneksi {
+public final class AuthenticationController extends Koneksi {
     User user;
     
     public AuthenticationController() {
@@ -24,14 +24,17 @@ public class AuthenticationController extends Koneksi {
     }
     
     
-    boolean login(String username, String password) {
+    public boolean login(String username, String password) {
      try {
         ResultSet existUser = executeQuery("SELECT * FROM `user` WHERE `username` = '" + username + "' AND `password` = '" + password + "'");
+        
+        System.out.println("Username " + username + " Password " + password);
          
        if(existUser.next()) {
            user = new User(existUser.getInt(1), existUser.getString(2));
            
            save();
+           System.out.println("Login Success " + user);
            return true;
        } else {
            throw new Exception("User not found!");
@@ -43,11 +46,11 @@ public class AuthenticationController extends Koneksi {
     }
     
     
-    boolean isLoggedIn () {
+    public boolean isLoggedIn () {
        return user != null;
     }
     
-    void checkCurrentSession() {
+    public void checkCurrentSession() {
         try {
             ResultSet currentSession = executeQuery("SELECT * FROM `session`");
             
@@ -64,14 +67,19 @@ public class AuthenticationController extends Koneksi {
         }
     }
     
-    void save() {
+    public void save() {
         long currentTimestamp = Instant.now().toEpochMilli();
         Object[] sessionObject = {user.id,currentTimestamp};
         executeQuery2("INSERT INTO session (id_user, login_time) " + objectToString(sessionObject));
     }
     
-    void logout() {
-        user = null;
-        executeQuery2("DELETE FROM session WHERE id_user = " + user.id);
+    public boolean logout() {
+        try {
+            user = null;
+            executeQuery2("DELETE FROM session");
+            return true;
+        } catch(Exception ex) {
+            return false;
+        }
     }
 }

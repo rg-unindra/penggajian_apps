@@ -5,8 +5,8 @@
  */
 package penggajian_app;
 
-import authentiocation.FormLogin;
 import javax.swing.JFrame;
+import utils.SplashScreen;
 
 /**
  *
@@ -18,7 +18,7 @@ public class Penggajian_app {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-         JFrame formLogin = new FormLogin();
+         JFrame formLogin = new SplashScreen();
          formLogin.setVisible(true);
     }
     
