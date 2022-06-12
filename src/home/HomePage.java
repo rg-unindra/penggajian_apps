@@ -7,6 +7,7 @@ package home;
 
 import authentiocation.AuthenticationController;
 import authentiocation.FormLogin;
+import jabatan.FormJabatan;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -35,6 +36,7 @@ public class HomePage extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btn_jabatan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,6 +53,13 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
+        btn_jabatan.setText("Jabatan");
+        btn_jabatan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_jabatanMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,6 +70,10 @@ public class HomePage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(37, 37, 37))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(btn_jabatan)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,10 +82,13 @@ public class HomePage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jButton1))
-                .addContainerGap(483, Short.MAX_VALUE))
+                .addGap(211, 211, 211)
+                .addComponent(btn_jabatan)
+                .addContainerGap(249, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
@@ -87,6 +103,12 @@ public class HomePage extends javax.swing.JFrame {
         }
       
     }//GEN-LAST:event_jButton1MousePressed
+
+    private void btn_jabatanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_jabatanMousePressed
+       JFrame jabatan = new FormJabatan();
+       jabatan.setAlwaysOnTop(true);
+       jabatan.setVisible(true);
+    }//GEN-LAST:event_btn_jabatanMousePressed
 
     /**
      * @param args the command line arguments
@@ -124,6 +146,7 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_jabatan;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
