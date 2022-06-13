@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Jun 2022 pada 03.43
+-- Waktu pembuatan: 13 Jun 2022 pada 04.46
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -21,6 +21,78 @@ SET time_zone = "+00:00";
 --
 -- Database: `penggajian`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jabatan`
+--
+
+CREATE TABLE `jabatan` (
+  `id_jabatan` varchar(50) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `gaji_pokok` bigint(20) NOT NULL,
+  `tunjangan` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `jabatan`
+--
+
+INSERT INTO `jabatan` (`id_jabatan`, `nama`, `gaji_pokok`, `tunjangan`) VALUES
+('JB1', 'Kepala Sekolah', 8000000, 1500000),
+('JB2', 'Wakil Kepala Sekolah', 6000000, 1300000),
+('JB3', 'Guru', 3600000, 1000000),
+('JB4', 'Staff IT', 5000000, 1500000),
+('JB5', 'Petugas Perpustakaan', 2000000, 500000),
+('JB6', 'Tata Usaha', 3500000, 1000000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `karyawan`
+--
+
+CREATE TABLE `karyawan` (
+  `id_karyawan` varchar(50) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `alamat` varchar(200) NOT NULL,
+  `agama` varchar(10) NOT NULL,
+  `id_jabatan` varchar(50) NOT NULL,
+  `tanggal_lahir` bigint(11) NOT NULL,
+  `tanggal_masuk` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `karyawan`
+--
+
+INSERT INTO `karyawan` (`id_karyawan`, `nama`, `alamat`, `agama`, `id_jabatan`, `tanggal_lahir`, `tanggal_masuk`) VALUES
+('KR1', 'Farhan Fadila', 'Limo Kota Kota Depok', 'Islam', 'JB2', 991396538762, 1655034976767),
+('KR2', 'Risky Setiawan', 'Lenteng Agung Kota Jakarta Selatan', 'Islam', 'JB1', 960783152000, 1591935152000),
+('KR3', 'Dian Anggara', 'Bekasi', 'Islam', 'JB1', 936271517000, 1559434454472);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `keterlambatan`
+--
+
+CREATE TABLE `keterlambatan` (
+  `id_keterlambatan` int(11) NOT NULL,
+  `id_karyawan` varchar(50) NOT NULL,
+  `jam` int(11) NOT NULL,
+  `tanggal` bigint(20) NOT NULL,
+  `keterangan` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `keterlambatan`
+--
+
+INSERT INTO `keterlambatan` (`id_keterlambatan`, `id_karyawan`, `jam`, `tanggal`, `keterangan`) VALUES
+(3, 'KR1', 2, 1655086113997, 'Kendaraan bermasalah'),
+(5, 'KR2', 1, 1654049313997, '');
 
 -- --------------------------------------------------------
 
@@ -43,19 +115,31 @@ CREATE TABLE `session` (
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `passwword` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `passwword`) VALUES
+INSERT INTO `user` (`id_user`, `username`, `password`) VALUES
 (1, 'admin', 'admin');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `jabatan`
+--
+ALTER TABLE `jabatan`
+  ADD PRIMARY KEY (`id_jabatan`);
+
+--
+-- Indeks untuk tabel `keterlambatan`
+--
+ALTER TABLE `keterlambatan`
+  ADD PRIMARY KEY (`id_keterlambatan`);
 
 --
 -- Indeks untuk tabel `session`
@@ -74,10 +158,16 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `keterlambatan`
+--
+ALTER TABLE `keterlambatan`
+  MODIFY `id_keterlambatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT untuk tabel `session`
 --
 ALTER TABLE `session`
-  MODIFY `id_session` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_session` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
