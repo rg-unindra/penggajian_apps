@@ -11,19 +11,19 @@ import jabatan.FormJabatan;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import karyawan.FormKaryawan;
+import keterlamabatan.FormKeterlambatan;
 
 /**
  *
  * @author Farhan Fadila
  */
 public class HomePage extends javax.swing.JFrame {
-    AuthenticationController authenticationController;
+    private final AuthenticationController authenticationController = new AuthenticationController();
     /**
      * Creates new form HomePage
      */
     public HomePage() {
         initComponents();
-        authenticationController = new AuthenticationController();
     }
     
     private void navigasi(String menu) {
@@ -32,6 +32,9 @@ public class HomePage extends javax.swing.JFrame {
         switch(menu) {
             case "karyawan":
                 frame = new FormKaryawan();
+            break;
+            case "keterlambatan":
+                frame = new FormKeterlambatan();
             break;
             default:
                 frame = new FormJabatan();
@@ -58,8 +61,8 @@ public class HomePage extends javax.swing.JFrame {
         ic_karayawan = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lbl_terlambat = new javax.swing.JLabel();
+        ic_terlambat = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
@@ -117,11 +120,21 @@ public class HomePage extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_kegiatan.png"))); // NOI18N
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Terlamat");
+        lbl_terlambat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_terlambat.setText("Terlamat");
+        lbl_terlambat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lbl_terlambatMousePressed(evt);
+            }
+        });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_terlamat.png"))); // NOI18N
-        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        ic_terlambat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_terlamat.png"))); // NOI18N
+        ic_terlambat.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        ic_terlambat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ic_terlambatMousePressed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Penggajian");
@@ -147,8 +160,8 @@ public class HomePage extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
+                    .addComponent(lbl_terlambat)
+                    .addComponent(ic_terlambat)
                     .addComponent(lbl_jabatan)
                     .addComponent(ic_jabatan)
                     .addComponent(jLabel1))
@@ -186,9 +199,9 @@ public class HomePage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(ic_terlambat)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)))
+                        .addComponent(lbl_terlambat)))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
 
@@ -224,6 +237,14 @@ public class HomePage extends javax.swing.JFrame {
     private void ic_karayawanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ic_karayawanMousePressed
        navigasi("karyawan");
     }//GEN-LAST:event_ic_karayawanMousePressed
+
+    private void ic_terlambatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ic_terlambatMousePressed
+      navigasi("keterlambatan");
+    }//GEN-LAST:event_ic_terlambatMousePressed
+
+    private void lbl_terlambatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_terlambatMousePressed
+       navigasi("keterlambatan");
+    }//GEN-LAST:event_lbl_terlambatMousePressed
 
     /**
      * @param args the command line arguments
@@ -263,15 +284,15 @@ public class HomePage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ic_jabatan;
     private javax.swing.JLabel ic_karayawan;
+    private javax.swing.JLabel ic_terlambat;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lbl_jabatan;
     private javax.swing.JLabel lbl_karyawan;
+    private javax.swing.JLabel lbl_terlambat;
     // End of variables declaration//GEN-END:variables
 }

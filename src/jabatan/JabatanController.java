@@ -80,4 +80,31 @@ public class JabatanController  extends Koneksi{
             return false;
         }
     }
+    
+    public Jabatan namaToJabatan(String nama) {
+        Jabatan temp = null;
+            
+        for(Jabatan item : dataJabatan(true)) {
+            if(item.namaJabatan.equalsIgnoreCase(nama)) {
+                temp = item; 
+                break;
+            }
+        }
+        
+        return temp;
+    }
+    
+     public Jabatan detailJabatan(String id) {
+        Jabatan temp = null;
+            
+        for(Jabatan item : dataJabatan(true)) {
+            if(item.id.equalsIgnoreCase(id)) {
+                temp = item; 
+                break;
+            }
+           
+        }
+        
+        return temp;
+    }
 }

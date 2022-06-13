@@ -7,7 +7,13 @@ package karyawan;
 
 import jabatan.Jabatan;
 import jabatan.JabatanController;
+import java.awt.HeadlessException;
+import java.time.Instant;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import utils.Utils;
 
 /**
  *
@@ -15,12 +21,17 @@ import java.util.List;
  */
 public class FormKaryawan extends javax.swing.JFrame {
     private final JabatanController jabatanController = new JabatanController();
+    private final KaryawanController karyawanController = new KaryawanController();
+    private final Utils utils = new Utils();
+    private DefaultTableModel model;
     /**
      * Creates new form FormKaryawan
      */
     public FormKaryawan() {
         initComponents();
         initcmbJabatan();
+        initColumnTabel();
+        initRowTabel();
     }
     
     
@@ -28,13 +39,59 @@ public class FormKaryawan extends javax.swing.JFrame {
         try {
            List<Jabatan> jabatan = jabatanController.dataJabatan(true);
             
-            for (Jabatan item : jabatan) {
+           jabatan.forEach((item) -> {
                cmb_jabatan.addItem(item.namaJabatan);
-            }
+            });
         } catch(Exception ex) {
             System.out.println(ex);
         }
     }
+    
+     private void initColumnTabel() {
+        model = new DefaultTableModel ();
+        
+        tbl_karyawan.setModel(model);
+        model.addColumn("ID");
+        model.addColumn("Nama");
+        model.addColumn("Jabatan");
+        model.addColumn("Alamat");
+    }
+    
+    private void initRowTabel() {
+       model.getDataVector().removeAllElements();
+       model.fireTableDataChanged();
+       try {
+            List<Karyawan> karyawan = karyawanController.dataKaryawan(false);
+            
+            
+            karyawan.stream().map((item) -> {
+                Object[] obj = new Object[4];
+                Jabatan jabatan = jabatanController.detailJabatan(item.idJabatan);
+                obj[0] = item.id;
+                obj[1] = item.nama;
+                obj[2] = jabatan.namaJabatan;
+                obj[3] = item.alamat;
+               return obj;
+           }).forEachOrdered((obj) -> { 
+               model.addRow(obj);
+           });
+           
+       } catch(Exception ex) {
+           System.out.println("initRowTabel ERROR" + ex);
+       }
+    }
+    
+    
+    private void resetForm() {
+        txt_id.setEditable(true);
+        txt_id.setText("");
+        txt_nama.setText("");
+        txt_alamat.setText("");
+        cal_lahir.setDate(utils.toDate(960809960));
+        cal_masuk.setDate(utils.toDate(utils.epochTimeNow()));
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,27 +108,24 @@ public class FormKaryawan extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txt_id = new javax.swing.JTextField();
-        txt_nam = new javax.swing.JTextField();
+        txt_nama = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_alamat = new javax.swing.JTextArea();
         cmb_agama = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cmb_jabatan = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        spn_lahir = new javax.swing.JSpinner();
-        spn_masuk = new javax.swing.JSpinner();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbl_karyawan = new javax.swing.JTable();
         btn_hapus = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         btn_tambah = new javax.swing.JButton();
+        cal_lahir = new com.toedter.calendar.JCalendar();
+        cal_masuk = new com.toedter.calendar.JCalendar();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,6 +142,7 @@ public class FormKaryawan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Form Karyawan");
 
         jLabel2.setText("ID");
@@ -104,24 +159,11 @@ public class FormKaryawan extends javax.swing.JFrame {
 
         jLabel5.setText("Agama");
 
-        jLabel6.setText("Jenis Kelamin");
-
-        kelamin.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Laki-laki");
-
-        kelamin.add(jRadioButton2);
-        jRadioButton2.setText("Perempuan");
-
         jLabel7.setText("Tanggal Lahir");
 
         jLabel8.setText("Tanggal Masuk");
 
         jLabel9.setText("Jabatan");
-
-        spn_lahir.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1276317600000L), null, new java.util.Date(1276317600000L), java.util.Calendar.DAY_OF_MONTH));
-
-        spn_masuk.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1276317600000L), null, new java.util.Date(1276317600000L), java.util.Calendar.DAY_OF_MONTH));
 
         tbl_karyawan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -134,8 +176,14 @@ public class FormKaryawan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_karyawan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbl_karyawanMousePressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(tbl_karyawan);
 
+        btn_hapus.setBackground(new java.awt.Color(255, 51, 51));
         btn_hapus.setText("Hapus");
         btn_hapus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -159,12 +207,16 @@ public class FormKaryawan extends javax.swing.JFrame {
             }
         });
 
+        cal_lahir.setDate(new java.util.Date(959858717000L));
+        cal_lahir.setMaxSelectableDate(new java.util.Date(1104516077000L));
+        cal_lahir.setMinSelectableDate(new java.util.Date(-2524543123000L));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(132, 132, 132)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_tambah)
@@ -172,58 +224,52 @@ public class FormKaryawan extends javax.swing.JFrame {
                         .addComponent(btn_edit)
                         .addGap(18, 18, 18)
                         .addComponent(btn_hapus)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cal_lahir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmb_agama, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmb_jabatan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(spn_lahir)
-                                    .addComponent(spn_masuk)
-                                    .addComponent(txt_nam)
+                                    .addComponent(txt_nama)
                                     .addComponent(jScrollPane1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jRadioButton2)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txt_id))))
-                        .addGap(97, 97, 97))))
+                                    .addComponent(txt_id)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(cal_masuk, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)))
+                        .addGap(123, 123, 123))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(329, 329, 329)
                 .addComponent(jLabel1)
-                .addGap(296, 296, 296))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel1)
-                .addGap(52, 52, 52)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt_nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -237,21 +283,21 @@ public class FormKaryawan extends javax.swing.JFrame {
                     .addComponent(cmb_jabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(spn_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spn_masuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cal_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(cal_masuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_tambah)
                     .addComponent(btn_hapus)
                     .addComponent(btn_edit))
-                .addGap(42, 42, 42)
+                .addGap(69, 69, 69)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -260,8 +306,11 @@ public class FormKaryawan extends javax.swing.JFrame {
 
     private void btn_hapusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hapusMousePressed
         try {
+            String id = txt_id.getText();
             
-          
+            karyawanController.hapus(id);
+            resetForm();
+            initRowTabel();
         } catch(Exception ex) {
             System.out.println("Buton Edit Exception => " + ex);
         }
@@ -269,20 +318,92 @@ public class FormKaryawan extends javax.swing.JFrame {
 
     private void btn_editMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMousePressed
         try {
-        
-        } catch(Exception ex) {
+           String id = txt_id.getText();
+           String nama = txt_nama.getText();
+           String alamat = txt_alamat.getText();
+           String agama = cmb_agama.getSelectedItem().toString();
+           String namaJabatan = cmb_jabatan.getSelectedItem().toString();
+           Jabatan jabatan = jabatanController.namaToJabatan(namaJabatan);
+           String idJabatan = jabatan.id;
+           long tanggalLahir = utils.toEpoch(cal_lahir.getDate());
+           long tanggalMasuk = utils.toEpoch(cal_masuk.getDate());
+           
+           boolean edit = karyawanController.edit(id, nama, alamat, agama, idJabatan, tanggalLahir, tanggalMasuk);
+           
+            if(edit) {
+                JOptionPane.showMessageDialog(this, "Data jabatan berhasil diedit!");
+                initRowTabel();
+                resetForm();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal mengedit data jabatan");
+            }
+        } catch(HeadlessException ex) {
             System.out.println("Buton Edit Exception => " + ex);
         }
     }//GEN-LAST:event_btn_editMousePressed
 
     private void btn_tambahMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_tambahMousePressed
         try {
+           String id = txt_id.getText();
+           String nama = txt_nama.getText();
+           String alamat = txt_alamat.getText();
+           String agama = cmb_agama.getSelectedItem().toString();
+           String namaJabatan = cmb_jabatan.getSelectedItem().toString();
+           Jabatan jabatan = jabatanController.namaToJabatan(namaJabatan);
+           String idJabatan = jabatan.id;
+           long tanggalLahir = utils.toEpoch(cal_lahir.getDate());
+           long tanggalMasuk = utils.toEpoch(cal_masuk.getDate());
            
-
-        } catch(Exception ex) {
+           boolean tambah =  karyawanController.tambah(id, nama, alamat, agama, idJabatan, tanggalLahir, tanggalMasuk);
+            
+            if(tambah) {
+                JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
+                initRowTabel();
+                resetForm();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menambah data!");
+            }
+        } catch(HeadlessException ex) {
             System.out.println("Buton Tambah Exception => " + ex);
         }
     }//GEN-LAST:event_btn_tambahMousePressed
+
+    private void tbl_karyawanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_karyawanMousePressed
+        int index = tbl_karyawan.getSelectedRow();
+        TableModel mdl = tbl_karyawan.getModel();
+        String id = mdl.getValueAt(index, 0).toString();
+        
+        try {
+            Karyawan karyawan = karyawanController.detailKaryawan(id);
+            Jabatan jabatan = jabatanController.detailJabatan(karyawan.idJabatan);
+            txt_id.setEditable(false);
+            txt_id.setText(karyawan.id);
+            txt_nama.setText(karyawan.nama);
+            txt_alamat.setText(karyawan.alamat);
+            
+            for(int i = 0; i < cmb_agama.getModel().getSize(); i++) {
+                String item =  cmb_agama.getModel().getElementAt(i);
+                if(item.equalsIgnoreCase(karyawan.agama)) {
+                    cmb_agama.setSelectedIndex(i);
+                    break;
+                }
+            }
+            
+            for(int i = 0; i < cmb_jabatan.getModel().getSize(); i++) {
+                String item =  cmb_jabatan.getModel().getElementAt(i);
+                if(item.equalsIgnoreCase(jabatan.namaJabatan)) {
+                    cmb_jabatan.setSelectedIndex(i);
+                    break;
+                }
+            }
+            
+            cal_lahir.setDate(utils.toDate(karyawan.tanggalLahir));
+            cal_masuk.setDate(utils.toDate(karyawan.tanggalMasuk));
+            
+        } catch(Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_tbl_karyawanMousePressed
 
     /**
      * @param args the command line arguments
@@ -323,6 +444,8 @@ public class FormKaryawan extends javax.swing.JFrame {
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_tambah;
+    private com.toedter.calendar.JCalendar cal_lahir;
+    private com.toedter.calendar.JCalendar cal_masuk;
     private javax.swing.JComboBox<String> cmb_agama;
     private javax.swing.JComboBox<String> cmb_jabatan;
     private javax.swing.JLabel jLabel1;
@@ -330,22 +453,17 @@ public class FormKaryawan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.ButtonGroup kelamin;
-    private javax.swing.JSpinner spn_lahir;
-    private javax.swing.JSpinner spn_masuk;
     private javax.swing.JTable tbl_karyawan;
     private javax.swing.JTextArea txt_alamat;
     private javax.swing.JTextField txt_id;
-    private javax.swing.JTextField txt_nam;
+    private javax.swing.JTextField txt_nama;
     // End of variables declaration//GEN-END:variables
 }

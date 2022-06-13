@@ -27,7 +27,7 @@ public class FormJabatan extends javax.swing.JFrame {
         initRowTabel();
     }
     
-        private void initColumnTabel() {
+    private void initColumnTabel() {
         model = new DefaultTableModel ();
         
         tbl_jabatan.setModel(model);
@@ -92,7 +92,6 @@ public class FormJabatan extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btn_hapus = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
-        btn_tutup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -132,6 +131,7 @@ public class FormJabatan extends javax.swing.JFrame {
 
         jLabel5.setText("Tunjangan");
 
+        btn_hapus.setBackground(new java.awt.Color(255, 51, 51));
         btn_hapus.setText("Hapus");
         btn_hapus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -147,16 +147,6 @@ public class FormJabatan extends javax.swing.JFrame {
             }
         });
 
-        btn_tutup.setBackground(new java.awt.Color(255, 51, 51));
-        btn_tutup.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btn_tutup.setForeground(new java.awt.Color(255, 255, 255));
-        btn_tutup.setText("Tutup");
-        btn_tutup.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_tutupMousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,8 +156,7 @@ public class FormJabatan extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(225, 225, 225)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_tutup))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(42, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,11 +192,9 @@ public class FormJabatan extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1)
                 .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btn_tutup))
-                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -259,11 +246,6 @@ public class FormJabatan extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btn_tambahMousePressed
 
-    private void btn_tutupMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_tutupMousePressed
-      setVisible(false);
-      dispose();
-    }//GEN-LAST:event_btn_tutupMousePressed
-
     private void tbl_jabatanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_jabatanMouseClicked
         int index = tbl_jabatan.getSelectedRow();
         TableModel mdl = tbl_jabatan.getModel();
@@ -287,9 +269,9 @@ public class FormJabatan extends javax.swing.JFrame {
             long gapok = Long.parseLong(txt_gapok.getText());
             long tunjangan = Long.parseLong(txt_tunjangan.getText());
             
-            boolean tambah =  jabatanController.edit(id, nama, gapok, tunjangan);
+            boolean edit =  jabatanController.edit(id, nama, gapok, tunjangan);
             
-            if(tambah) {
+            if(edit) {
                 JOptionPane.showMessageDialog(this, "Data jabatan berhasil diedit!");
                 initRowTabel();
                 resetForm();
@@ -352,7 +334,6 @@ public class FormJabatan extends javax.swing.JFrame {
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_tambah;
-    private javax.swing.JButton btn_tutup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

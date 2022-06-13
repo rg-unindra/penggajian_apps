@@ -10,13 +10,13 @@ package karyawan;
  * @author Farhan Fadila
  */
 public class Karyawan {
-    String id;
-    String nama;
-    String alamat;
-    String agama;
-    String idJabatan;
-    long tanggalLahir;
-    long tanggalMasuk;
+    public String id;
+    public String nama;
+    public String alamat;
+    public String agama;
+    public String idJabatan;
+    public long tanggalLahir;
+    public long tanggalMasuk;
     
     
     public Karyawan(
