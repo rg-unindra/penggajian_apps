@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jun 2022 pada 04.46
+-- Waktu pembuatan: 26 Jun 2022 pada 08.27
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.2.11
 
@@ -68,9 +68,10 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`id_karyawan`, `nama`, `alamat`, `agama`, `id_jabatan`, `tanggal_lahir`, `tanggal_masuk`) VALUES
-('KR1', 'Farhan Fadila', 'Limo Kota Kota Depok', 'Islam', 'JB2', 991396538762, 1655034976767),
-('KR2', 'Risky Setiawan', 'Lenteng Agung Kota Jakarta Selatan', 'Islam', 'JB1', 960783152000, 1591935152000),
-('KR3', 'Dian Anggara', 'Bekasi', 'Islam', 'JB1', 936271517000, 1559434454472);
+('KR1', 'Farhan Fadila', 'Limo Kota Kota Depok', 'Islam', 'JB4', 991396538762, 1655034976767),
+('KR2', 'Risky Setiawan', 'Lenteng Agung Kota Jakarta Selatan', 'Islam', 'JB2', 960783152000, 1591935152000),
+('KR3', 'Dian Anggara', 'Bekasi', 'Islam', 'JB1', 936271517000, 1559434454472),
+('KR4', 'Muhammad Zaenudin', 'Kota Depok', 'Islam', 'JB3', 928429200000, 1624504358315);
 
 -- --------------------------------------------------------
 
@@ -97,6 +98,40 @@ INSERT INTO `keterlambatan` (`id_keterlambatan`, `id_karyawan`, `jam`, `tanggal`
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `laporan_penggajian`
+--
+
+CREATE TABLE `laporan_penggajian` (
+  `id_laporan_penggajian` int(11) NOT NULL,
+  `id_karyawan` varchar(50) NOT NULL,
+  `nama_karyawan` varchar(50) NOT NULL,
+  `nama_jabatan` varchar(50) NOT NULL,
+  `gaji_pokok` double NOT NULL,
+  `tunjangan` double NOT NULL,
+  `total_potongan` double NOT NULL,
+  `gaji_bersih` double NOT NULL,
+  `tanggal` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `penggajian`
+--
+
+CREATE TABLE `penggajian` (
+  `id_penggajian` int(11) NOT NULL,
+  `id_karyawan` varchar(50) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `total_potongan` double NOT NULL,
+  `gaji_bersih` double NOT NULL,
+  `tanggal` bigint(20) NOT NULL,
+  `tanggal_dibuat` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `session`
 --
 
@@ -105,6 +140,13 @@ CREATE TABLE `session` (
   `id_user` int(11) NOT NULL,
   `login_time` bigint(20) NOT NULL COMMENT 'login time in epoch milliseconds time '
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `session`
+--
+
+INSERT INTO `session` (`id_session`, `id_user`, `login_time`) VALUES
+(13, 1, 1655092695506);
 
 -- --------------------------------------------------------
 
@@ -142,6 +184,18 @@ ALTER TABLE `keterlambatan`
   ADD PRIMARY KEY (`id_keterlambatan`);
 
 --
+-- Indeks untuk tabel `laporan_penggajian`
+--
+ALTER TABLE `laporan_penggajian`
+  ADD PRIMARY KEY (`id_laporan_penggajian`);
+
+--
+-- Indeks untuk tabel `penggajian`
+--
+ALTER TABLE `penggajian`
+  ADD PRIMARY KEY (`id_penggajian`);
+
+--
 -- Indeks untuk tabel `session`
 --
 ALTER TABLE `session`
@@ -164,10 +218,22 @@ ALTER TABLE `keterlambatan`
   MODIFY `id_keterlambatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT untuk tabel `laporan_penggajian`
+--
+ALTER TABLE `laporan_penggajian`
+  MODIFY `id_laporan_penggajian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `penggajian`
+--
+ALTER TABLE `penggajian`
+  MODIFY `id_penggajian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT untuk tabel `session`
 --
 ALTER TABLE `session`
-  MODIFY `id_session` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_session` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`

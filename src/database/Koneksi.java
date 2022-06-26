@@ -86,7 +86,7 @@ public  class Koneksi {
     }
     
     public String objectToString(Object[] objects) { 
-        String query = "VALUES (";
+        String query = " (";
         for(int i = 0; i < objects.length; i++) {
             Object o = objects[i];
             boolean isLast = i == objects.length - 1;

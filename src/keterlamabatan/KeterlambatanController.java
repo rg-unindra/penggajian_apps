@@ -9,16 +9,19 @@ import Database.Koneksi;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import karyawan.KaryawanController;
+import utils.Utils;
 
 /**
  *
  * @author Farhan Fadila
  */
 public class KeterlambatanController extends Koneksi {
+     private final Utils utils = new Utils();
      public KeterlambatanController() {
         if(con == null) {
             start();
@@ -30,6 +33,24 @@ public class KeterlambatanController extends Koneksi {
         List<Keterlambatan> temp = new ArrayList<>();
 
         ResultSet result = executeQuery("SELECT * FROM `keterlambatan`");
+
+        try {
+            while(result.next()) {
+               temp.add(new Keterlambatan(result.getInt(1), result.getString(2), result.getInt(3), result.getLong(4), result.getString(5)));
+            }
+        } catch (SQLException ex) {
+           Logger.getLogger(KaryawanController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return temp;
+    }
+    
+    public List<Keterlambatan> dataKeterlambatanSatuBulan(String idKaryawan, Date bulan) {
+        List<Keterlambatan> temp = new ArrayList<>();
+        long hariPertama = utils.dayStart(bulan);
+        long hariTerakhir = utils.dayEnd(bulan);
+
+        ResultSet result = executeQuery("SELECT * FROM `keterlambatan` WHERE `id_karyawan` = '" + idKaryawan + "' AND `tanggal` >= '" + hariPertama + "' AND `tanggal` <= '" + hariTerakhir + "'");
 
         try {
             while(result.next()) {
@@ -64,7 +85,7 @@ public class KeterlambatanController extends Koneksi {
     ) {
         try {
           Object[] object = {idKaryawan, jam, tanggal, keterangan};
-          executeQuery2("INSERT INTO `keterlambatan` (id_karyawan, jam, tanggal, keterangan) " + objectToString(object));
+          executeQuery2("INSERT INTO `keterlambatan` (id_karyawan, jam, tanggal, keterangan) VALUES " + objectToString(object));
           return true;
         } catch(Exception ex) {
             System.out.println("Tambah Exception => " + ex);

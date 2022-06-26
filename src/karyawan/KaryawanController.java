@@ -33,7 +33,7 @@ public class KaryawanController extends Koneksi {
             return karyawan;
         }
 
-        ResultSet result = executeQuery("SELECT * FROM `karyawan`");
+        ResultSet result = executeQuery("SELECT * FROM `karyawan` ORDER BY `nama` ASC");
 
         try {
             while(result.next()) {
@@ -60,7 +60,7 @@ public class KaryawanController extends Koneksi {
     ) {
         try {
           Object[] object = {id, nama, alamat, agama, idJabatan, tanggalLahir, tanggalMasuk};
-          executeQuery2("INSERT INTO `karyawan` (id_karyawan, nama, alamat, agama, id_jabatan, tanggal_lahir, tanggal_masuk) " + objectToString(object));
+          executeQuery2("INSERT INTO `karyawan` (id_karyawan, nama, alamat, agama, id_jabatan, tanggal_lahir, tanggal_masuk) VALUES " + objectToString(object));
           return true;
         } catch(Exception ex) {
             System.out.println("Tambah Jabatan Exception => " + ex);

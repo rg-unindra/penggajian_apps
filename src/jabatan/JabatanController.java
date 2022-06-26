@@ -29,7 +29,7 @@ public class JabatanController  extends Koneksi{
     public boolean tambah(String id, String nama, long gapok, long tunjangan) {
         try {
           Object[] object = {id, nama, gapok, tunjangan};
-          executeQuery2("INSERT INTO jabatan (id_jabatan, nama, gaji_pokok, tunjangan) " + objectToString(object));
+          executeQuery2("INSERT INTO jabatan (id_jabatan, nama, gaji_pokok, tunjangan) VALUES " + objectToString(object));
           return true;
         } catch(Exception ex) {
             System.out.println("Tambah Jabatan Exception => " + ex);

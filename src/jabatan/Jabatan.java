@@ -22,7 +22,6 @@ public class Jabatan {
         this.tunjangan = tunjangan;
     }
     
-    
     @Override
     public String toString() {
         return "Jabatan(" + id + "," + namaJabatan + "," + gajiPokok +  "," + tunjangan + ")";

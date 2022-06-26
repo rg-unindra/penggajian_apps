@@ -8,7 +8,6 @@ package karyawan;
 import jabatan.Jabatan;
 import jabatan.JabatanController;
 import java.awt.HeadlessException;
-import java.time.Instant;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

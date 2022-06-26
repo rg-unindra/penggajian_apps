@@ -7,6 +7,7 @@ package authentiocation;
 
 import Database.Koneksi;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Instant;
 
 /**
@@ -14,7 +15,7 @@ import java.time.Instant;
  * @author Farhan Fadila
  */
 public final class AuthenticationController extends Koneksi {
-    User user;
+    public User user;
     
     public AuthenticationController() {
         if(con == null) {
@@ -62,7 +63,7 @@ public final class AuthenticationController extends Koneksi {
                     System.out.println("Succefully Loggin from Cache => " + user);
                 }
             }
-        } catch(Exception ex) {
+        } catch(SQLException ex) {
             System.out.println(ex);
         }
     }
@@ -70,7 +71,7 @@ public final class AuthenticationController extends Koneksi {
     public void save() {
         long currentTimestamp = Instant.now().toEpochMilli();
         Object[] sessionObject = {user.id,currentTimestamp};
-        executeQuery2("INSERT INTO session (id_user, login_time) " + objectToString(sessionObject));
+        executeQuery2("INSERT INTO session (id_user, login_time) VALUES " + objectToString(sessionObject));
     }
     
     public boolean logout() {

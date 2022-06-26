@@ -10,11 +10,11 @@ package authentiocation;
  * @author Farhan Fadila
  */
 public class User {
-    int id;
-    String username;
+    public int id;
+    public String username;
     
     
-    User(int id, String username) {
+    public User(int id, String username) {
         this.id = id;
         this.username = username;
     }
