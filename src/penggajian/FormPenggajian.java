@@ -149,23 +149,6 @@ public class FormPenggajian extends javax.swing.JFrame {
             System.out.println(ex);
         }
     }
-    
-    
-    private void bukaLaporan() {
-      try {
-        String reportDirectory = System.getProperty("user.dir") + "/src/laporan/";
-        String reportSource = reportDirectory + "laporan_penggajian.jrxml";
-        String reportDestination = reportDirectory + "laporan_penggajian.jasper";
-        
-        JasperReport report = JasperCompileManager.compileReport(reportSource);
-        JasperPrint print = JasperFillManager.fillReport(report, null, penggajianController.con);
-        JasperExportManager.exportReportToHtmlFile(print, reportDestination);
-        JasperViewer.viewReport(print, false);
-      } catch(JRException ex) {
-        System.out.println(ex);
-      }
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -303,7 +286,7 @@ public class FormPenggajian extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_prosesActionPerformed
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
-        bukaLaporan();
+        utils.bukaLaporan("laporan_penggajian", penggajianController.con);
     }//GEN-LAST:event_btn_laporanActionPerformed
 
     private void btn_prosesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_prosesMousePressed

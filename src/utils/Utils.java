@@ -5,6 +5,7 @@
  */
 package utils;
 
+import java.sql.Connection;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -13,6 +14,13 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -49,7 +57,7 @@ public class Utils {
 
 //    Ini buat dapet hari pertama bulan dari date di property
 //    Misalkan hari pertama dari bulan juni 2022
-//    hari terakhirnya 1 Juni 2022 00:00:00
+//    hari pertamanya 1 Juni 2022 00:00:00
 //    Dikemabliin dalam bentuk epoch `1656608399000`
     public long dayStart(Date date) {
         LocalDate ld = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -69,5 +77,22 @@ public class Utils {
         int year = ld.getYear();
         YearMonth ym =  YearMonth.of(year, month);
         return toEpoch(Date.from(ym.atEndOfMonth().atStartOfDay(ZoneId.systemDefault()).toInstant().plusSeconds(86399)));
+    }
+     
+    public void bukaLaporan(String namaFile, Connection con) {
+        try {
+            String reportDirectory = System.getProperty("user.dir") + "/src/laporan/" + namaFile;
+            String reportSource = reportDirectory  + ".jrxml";
+            String reportDestination = reportDirectory + ".jasper";
+
+            JasperReport report = JasperCompileManager.compileReport(reportSource);
+            JasperPrint print = JasperFillManager.fillReport(report, null, con);
+            JasperExportManager.exportReportToHtmlFile(print, reportDestination);
+            JasperViewer viewer = new JasperViewer(print, false, locale);
+            viewer.setAlwaysOnTop(true);
+            viewer.setVisible(true);
+        } catch(JRException ex) {
+            System.out.println(ex);
+        }
     }
 }
