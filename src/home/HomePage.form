@@ -24,13 +24,15 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="lbl_karyawan" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="ic_karayawan" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="ic_lembur" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_lembur" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="2" groupAlignment="2" attributes="0">
-                      <Component id="ic_lembur" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbl_lembur" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_user" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="ic_user" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -43,19 +45,21 @@
                       <Group type="103" groupAlignment="2" attributes="0">
                           <Component id="lbl_penggajian" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="ic_penggajian" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="2" groupAlignment="2" attributes="0">
-                              <Component id="lbl_terlambat" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="ic_terlambat" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lbl_terlambat" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="ic_terlambat" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="2" attributes="0">
                           <Component id="lbl_jabatan" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="ic_jabatan" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="2" groupAlignment="2" attributes="0">
+                              <Component id="ic_cuti" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_cuti" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="160" max="32767" attributes="0"/>
+              <EmptySpace pref="153" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -89,20 +93,33 @@
                       <Component id="lbl_jabatan" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
+              <EmptySpace pref="43" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="ic_lembur" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="ic_lembur" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lbl_lembur" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="ic_terlambat" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lbl_terlambat" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="ic_user" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbl_lembur" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_user" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="ic_terlambat" min="-2" max="-2" attributes="0"/>
+                      <Component id="ic_cuti" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbl_terlambat" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_cuti" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -243,6 +260,50 @@
       </Properties>
       <Events>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_lemburMousePressed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="ic_user">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/assets/ic_admin.png"/>
+        </Property>
+        <Property name="verticalAlignment" type="int" value="3"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ic_userMousePressed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_user">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="11" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="User"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_userMousePressed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="ic_cuti">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/assets/ic_cuti.png"/>
+        </Property>
+        <Property name="verticalAlignment" type="int" value="3"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ic_cutiMousePressed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_cuti">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="11" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Cuti"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_cutiMousePressed"/>
       </Events>
     </Component>
   </SubComponents>

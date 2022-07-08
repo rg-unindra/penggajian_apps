@@ -57,6 +57,8 @@
                       <Component id="btn_edit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btn_hapus" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btn_laporan" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -142,6 +144,7 @@
                   <Component id="btn_tambah" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_hapus" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_edit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_laporan" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               <Component id="jScrollPane3" min="-2" pref="150" max="-2" attributes="0"/>
@@ -299,9 +302,6 @@
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="cal_lahir">
       <Properties>
-        <Property name="date" type="java.util.Date" editor="org.netbeans.beaninfo.editors.DateEditor">
-          <SerializedValue value="-84,-19,0,5,115,114,0,14,106,97,118,97,46,117,116,105,108,46,68,97,116,101,104,106,-127,1,75,89,116,25,3,0,0,120,112,119,8,0,0,0,-36,105,-121,112,-88,120"/>
-        </Property>
         <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
         <Property name="maxSelectableDate" type="java.util.Date" editor="org.netbeans.beaninfo.editors.DateEditor">
           <SerializedValue value="-84,-19,0,5,115,114,0,14,106,97,118,97,46,117,116,105,108,46,68,97,116,101,104,106,-127,1,75,89,116,25,3,0,0,120,112,119,8,0,0,-26,112,121,38,116,-88,120"/>
@@ -315,6 +315,17 @@
         </Property>
         <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_laporan">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="99" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Laporan"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_laporanMousePressed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -125,6 +125,7 @@ public class FormKaryawan extends javax.swing.JFrame {
         btn_tambah = new javax.swing.JButton();
         cal_lahir = new com.toedter.calendar.JDateChooser();
         cal_masuk = new com.toedter.calendar.JDateChooser();
+        btn_laporan = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -206,12 +207,19 @@ public class FormKaryawan extends javax.swing.JFrame {
             }
         });
 
-        cal_lahir.setDate(new java.util.Date(946663289000L));
         cal_lahir.setDateFormatString("dd-MM-yyyy");
         cal_lahir.setMaxSelectableDate(new java.util.Date(253370743289000L));
 
         cal_masuk.setDate(new java.util.Date(1640973689000L));
         cal_masuk.setDateFormatString("dd-MM-yyyy");
+
+        btn_laporan.setBackground(new java.awt.Color(255, 153, 51));
+        btn_laporan.setText("Laporan");
+        btn_laporan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_laporanMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,6 +234,8 @@ public class FormKaryawan extends javax.swing.JFrame {
                         .addComponent(btn_edit)
                         .addGap(18, 18, 18)
                         .addComponent(btn_hapus)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_laporan)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -292,7 +302,8 @@ public class FormKaryawan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_tambah)
                     .addComponent(btn_hapus)
-                    .addComponent(btn_edit))
+                    .addComponent(btn_edit)
+                    .addComponent(btn_laporan))
                 .addGap(44, 44, 44)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
@@ -325,6 +336,8 @@ public class FormKaryawan extends javax.swing.JFrame {
            String idJabatan = jabatan.id;
            long tanggalLahir = utils.toEpoch(cal_lahir.getDate());
            long tanggalMasuk = utils.toEpoch(cal_masuk.getDate());
+           
+          
            
            boolean edit = karyawanController.edit(id, nama, alamat, agama, idJabatan, tanggalLahir, tanggalMasuk);
            
@@ -403,6 +416,10 @@ public class FormKaryawan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbl_karyawanMousePressed
 
+    private void btn_laporanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_laporanMousePressed
+        utils.bukaLaporan("laporan_karyawan", karyawanController.con);
+    }//GEN-LAST:event_btn_laporanMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -441,6 +458,7 @@ public class FormKaryawan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_hapus;
+    private javax.swing.JButton btn_laporan;
     private javax.swing.JButton btn_tambah;
     private com.toedter.calendar.JDateChooser cal_lahir;
     private com.toedter.calendar.JDateChooser cal_masuk;

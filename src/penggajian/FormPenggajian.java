@@ -9,6 +9,7 @@ import authentiocation.AuthenticationController;
 import authentiocation.User;
 import jabatan.Jabatan;
 import jabatan.JabatanController;
+import java.awt.HeadlessException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,13 +20,8 @@ import karyawan.Karyawan;
 import karyawan.KaryawanController;
 import keterlamabatan.Keterlambatan;
 import keterlamabatan.KeterlambatanController;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
+import lembur.Lembur;
+import lembur.LemburController;
 import utils.Utils;
 
 /**
@@ -38,6 +34,7 @@ public class FormPenggajian extends javax.swing.JFrame {
     private final PenggajianController penggajianController = new PenggajianController();
     private final KeterlambatanController keterlambatanController = new KeterlambatanController();
     private final AuthenticationController authenticationController = new AuthenticationController();
+    private final LemburController lemburController = new LemburController();
     private final Utils utils = new Utils();
     private DefaultTableModel model;
     /**
@@ -56,7 +53,8 @@ public class FormPenggajian extends javax.swing.JFrame {
         model.addColumn("No");
         model.addColumn("Nama");
         model.addColumn("Jabatan");
-        model.addColumn("Total Potongan");
+        model.addColumn("Lembur");
+        model.addColumn("Potongan");
         model.addColumn("Gaji Bersih");
     }
     
@@ -74,16 +72,18 @@ public class FormPenggajian extends javax.swing.JFrame {
                Penggajian penggajian = daftarPenggajian.get(i);
                Karyawan karyawan = karyawanController.detailKaryawan(penggajian.idKaryawan);
                Jabatan jabatan = jabatanController.detailJabatan(karyawan.idJabatan);
+               String totalLembur = utils.formatToRupiah(penggajian.totalLembur);
                String totalPotongan = utils.formatToRupiah(penggajian.totalPotongan);
                String gajiBersih = utils.formatToRupiah(penggajian.gajiBersih);
                
-               Object[] obj = new Object[5];
+               Object[] obj = new Object[6];
                
                obj[0] = no;
                obj[1] = karyawan.nama;
                obj[2] = jabatan.namaJabatan;
-               obj[3] = totalPotongan;
-               obj[4] = gajiBersih;
+               obj[3] = totalLembur;
+               obj[4] = totalPotongan;
+               obj[5] = gajiBersih;
                
                model.addRow(obj);
            }
@@ -105,35 +105,44 @@ public class FormPenggajian extends javax.swing.JFrame {
 
             for(int i = 0; i < daftarKaryawan.size(); i++) {
                     int totalJamKeterlambatan = 0;
+                    int totalJamLembur = 0;
                     Karyawan karyawan = daftarKaryawan.get(i);
                     Jabatan jabatan = jabatanController.detailJabatan(karyawan.idJabatan);
                     List<Keterlambatan> dataKeterlambatan = keterlambatanController.dataKeterlambatanSatuBulan(karyawan.id, date);
+                    List<Lembur> dataLembur = lemburController.dataLemburSatuBulan(karyawan.id, date);
 
                     if(!dataKeterlambatan.isEmpty()) {
                         totalJamKeterlambatan = dataKeterlambatan.stream().map((item) -> item.jam).reduce(totalJamKeterlambatan, Integer::sum);
                     }
+                    
+                    if(!dataLembur.isEmpty()) {
+                        totalJamLembur = dataLembur.stream().map((item) -> item.jam).reduce(totalJamLembur, Integer::sum);
+                    }
 
-                    double totalPotongan = (jabatan.gajiPokok * 0.001) * totalJamKeterlambatan;
-                    double gajiBersih = jabatan.gajiPokok + jabatan.tunjangan + - totalPotongan ;
+                    double totalPotongan = utils.formatDecimal(jabatan.gajiPerJam() * totalJamKeterlambatan);
+                    double totalLembur = utils.formatDecimal(jabatan.gajiPerJam() * totalJamLembur);
+                    double gajiBersih = jabatan.gajiPokok + jabatan.tunjangan + totalLembur - totalPotongan;
                       
-                    Object[] obj = new Object[6];
+                    Object[] obj = new Object[7];
                     obj[0] = karyawan.id;
                     obj[1] = user.id;
-                    obj[2] = totalPotongan;
-                    obj[3] = gajiBersih;
-                    obj[4] = utils.dayStart(date);
-                    obj[5] = utils.epochTimeNow();
+                    obj[2] = totalLembur;
+                    obj[3] = totalPotongan;
+                    obj[4] = gajiBersih;
+                    obj[5] = utils.dayStart(date);
+                    obj[6] = utils.epochTimeNow();
                     temp.add(obj);
                     
-                    Object[] objLaporan = new Object[8];
+                    Object[] objLaporan = new Object[9];
                     objLaporan[0] = karyawan.id;
                     objLaporan[1] = karyawan.nama;
                     objLaporan[2] = jabatan.namaJabatan;
-                    objLaporan[3] = jabatan.gajiPokok * 1.0;
-                    objLaporan[4] = jabatan.tunjangan * 1.0;
-                    objLaporan[5] = totalPotongan;
-                    objLaporan[6] = gajiBersih;
-                    objLaporan[7] = utils.epochTimeNow();
+                    objLaporan[3] = jabatan.gajiPokok;
+                    objLaporan[4] = jabatan.tunjangan;
+                    objLaporan[5] = totalLembur;
+                    objLaporan[6] = totalPotongan;
+                    objLaporan[7] = gajiBersih;
+                    objLaporan[8] = utils.epochTimeNow();
                     tempLaporan.add(objLaporan);
             }
 
@@ -145,7 +154,7 @@ public class FormPenggajian extends javax.swing.JFrame {
            } else {
               JOptionPane.showMessageDialog(this, "Data gagal disimpan!");
            }
-        } catch(Exception ex) {
+        } catch(HeadlessException ex) {
             System.out.println(ex);
         }
     }

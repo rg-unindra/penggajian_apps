@@ -34,7 +34,7 @@ public class PenggajianController extends Koneksi {
             final long tanggalAkhir = utils.dayEnd(bulan);
             executeQuery2("DELETE FROM `penggajian` WHERE tanggal >= '" + tanggalAwal + "' AND tanggal <= '" + tanggalAkhir + "'");
            
-            String query = "INSERT INTO `penggajian` (id_karyawan, id_user, total_potongan, gaji_bersih, tanggal, tanggal_dibuat) VALUES ";
+            String query = "INSERT INTO `penggajian` (id_karyawan, id_user, total_lembur, total_potongan, gaji_bersih, tanggal, tanggal_dibuat) VALUES ";
             
             for(int i = 0; i < data.size(); i++) {
                 boolean isLast = i == data.size() - 1;
@@ -60,7 +60,7 @@ public class PenggajianController extends Koneksi {
 
             ResultSet result = executeQuery("SELECT * FROM `penggajian` WHERE tanggal >= '" + tanggalAwal + "' AND tanggal <= '" + tanggalAkhir + "'");
             while(result.next()) {
-               temp.add(new Penggajian(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4), result.getDouble(5), result.getLong(6), result.getLong(7)));
+               temp.add(new Penggajian(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4), result.getDouble(5), result.getDouble(6), result.getLong(6), result.getLong(7)));
             }
             return temp;
         }  catch(SQLException ex) {
@@ -72,7 +72,7 @@ public class PenggajianController extends Koneksi {
     private void simpanLaporan(List<Object[]> dataLaporan) {
         try {
             executeQuery2("DELETE FROM `laporan_penggajian`");
-            String query = "INSERT INTO `laporan_penggajian` (id_karyawan, nama_karyawan, nama_jabatan, gaji_pokok, tunjangan, total_potongan, gaji_bersih, tanggal) VALUES ";
+            String query = "INSERT INTO `laporan_penggajian` (id_karyawan, nama_karyawan, nama_jabatan, gaji_pokok, tunjangan, total_lembur, total_potongan, gaji_bersih, tanggal) VALUES ";
             
             for(int i = 0; i < dataLaporan.size(); i++) {
                 boolean isLast = i == dataLaporan.size() - 1;

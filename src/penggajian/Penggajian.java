@@ -13,6 +13,7 @@ public class Penggajian {
     public int id;
     public String idKaryawan;
     public String idUser;
+    public double totalLembur;
     public double totalPotongan;
     public double gajiBersih;
     public long tanggal;
@@ -22,6 +23,7 @@ public class Penggajian {
             int id,
             String idKaryawan,
             String idUser,
+            double totalLembur,
             double totalPotongan,
             double gajiBersih,
             long tanggal,
@@ -30,6 +32,7 @@ public class Penggajian {
         this.id = id;
         this.idKaryawan = idKaryawan;
         this.idUser = idUser;
+        this.totalLembur = totalLembur;
         this.totalPotongan = totalPotongan;
         this.gajiBersih = gajiBersih;
         this.tanggal = tanggal;

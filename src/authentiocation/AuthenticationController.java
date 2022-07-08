@@ -6,10 +6,16 @@
 package authentiocation;
 
 import Database.Koneksi;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
-
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Farhan Fadila
@@ -24,6 +30,27 @@ public final class AuthenticationController extends Koneksi {
         checkCurrentSession();
     }
     
+    public boolean tambah(
+        String username, 
+        String password,
+        JFrame form
+    ) {
+        try {
+           ResultSet existUser = executeQuery("SELECT * FROM `user` WHERE `username` = '" + username + "'");
+           Object[] userObject = {username, password};
+           if(existUser.next()) {
+               JOptionPane.showMessageDialog(form, "Maaf, username telah digunakan!");
+               return false;
+           }
+           
+           executeQuery2("INSERT INTO `user` (username, password) VALUES " + objectToString(userObject));
+           return true;
+        } catch(HeadlessException | SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
+    
     
     public boolean login(String username, String password) {
      try {
@@ -32,7 +59,7 @@ public final class AuthenticationController extends Koneksi {
         System.out.println("Username " + username + " Password " + password);
          
        if(existUser.next()) {
-           user = new User(existUser.getInt(1), existUser.getString(2));
+           user = new User(existUser.getInt(1), existUser.getString(2), existUser.getString(3));
            
            save();
            System.out.println("Login Success " + user);
@@ -59,7 +86,7 @@ public final class AuthenticationController extends Koneksi {
                 int id =  currentSession.getInt(2);
                 ResultSet existUser = executeQuery("SELECT * FROM `user` WHERE `id_user` = '" + id + "'");
                 if(existUser.next()) {
-                    user = new User(existUser.getInt(1), existUser.getString(2));
+                    user = new User(existUser.getInt(1), existUser.getString(2), existUser.getString(3));
                     System.out.println("Succefully Loggin from Cache => " + user);
                 }
             }
@@ -80,6 +107,54 @@ public final class AuthenticationController extends Koneksi {
             executeQuery2("DELETE FROM session");
             return true;
         } catch(Exception ex) {
+            return false;
+        }
+    }
+    
+    public List<User> dataUser() {
+        List<User> temp = new ArrayList<>();
+
+        ResultSet result = executeQuery("SELECT * FROM `user`");
+
+        try {
+            while(result.next()) {
+               temp.add(new User(result.getInt(1), result.getString(2), result.getString(3)));
+            }
+        } catch (SQLException ex) {
+           Logger.getLogger(AuthenticationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return temp;
+    }
+    
+    public boolean hapus(int id) {
+        try {
+            if(id == user.id) {
+                return false;
+            }
+            executeQuery2("DELETE FROM `user` WHERE `id_user` = '" + id + "'");
+            return true;
+        } catch(Exception ex) {
+            return false;
+        }
+    }
+    
+    public boolean edit(
+        int id,
+        String username,
+        String password,
+        JFrame form
+    ) {
+        try {
+           ResultSet existUser = executeQuery("SELECT * FROM `user` WHERE `username` = '" + username + "'");
+           if(existUser.next()) {
+               JOptionPane.showMessageDialog(form, "Maaf, username telah digunakan!");
+               return false;
+           }
+           executeQuery2("UPDATE `user` SET username = '" + username + "' , password = '" + password + "' WHERE id_user = '" + id + "'");
+          return true;
+        } catch(Exception ex) {
+            System.out.println("Edit Exception => " + ex);
             return false;
         }
     }

@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package keterlamabatan;
+package lembur;
 
 /**
  *
  * @author Farhan Fadila
  */
-public class Keterlambatan {
+public class Lembur {
     public int id;
     public String idKaryawan;
     public int jam;
     public long tanggal;
     public String keterangan;
     
-    public Keterlambatan(
+    public Lembur(
          int id,
          String idKaryawan,
          int jam,
@@ -32,6 +32,6 @@ public class Keterlambatan {
     
     @Override
     public String toString() {
-        return "Keterlambatan(" + id + "," + idKaryawan + "," + jam + "," + tanggal + "," + keterangan  + ")";
+        return "Lembur(" + id + "," + idKaryawan + "," + jam + "," + tanggal + "," + keterangan  + ")";
     }
 }

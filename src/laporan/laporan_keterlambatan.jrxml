@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c3edbfd5-b1fa-439d-92a9-4a221f2aa97c">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT karyawan.id_karyawan, karyawan.nama, keterlambatan.jam, keterlambatan.keterangan, keterlambatan.tanggal FROM keterlambatan INNER JOIN karyawan ON keterlambatan.id_karyawan = karyawan.id_karyawan ORDER BY keterlambatan.tanggal DESC]]>
+	</queryString>
+	<field name="id_karyawan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jam" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="keterangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="134" y="30" width="388" height="26" uuid="9b222058-6dac-4782-871a-409d8b0fdfb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SMK GRAFIKA DESA PUTERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="56" width="388" height="29" uuid="e22da70d-8c49-48f0-a3c2-7f64570062f1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Jl. Komp. Desa Putera No.5, RT.7/RW.5, Srengseng Sawah, Kec. Jagakarsa, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12640]]></text>
+			</staticText>
+			<image>
+				<reportElement x="54" y="11" width="80" height="80" uuid="f2c3f00f-4674-4985-8e1e-057b77eb8236"/>
+				<imageExpression><![CDATA["C:\\Users\\Farhan Fadila\\Downloads\\logo_dp.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="73" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="8224abbc-b39f-4e0f-9cc7-e6923e27686a"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="33" width="555" height="20" uuid="7f760609-de2e-454f-8b3f-7b7d5a61128c"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Keterlambatan]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="40" width="73" height="20" uuid="95e76bc1-b3b7-4459-b56a-4bcb6060dbda"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="73" y="40" width="156" height="20" uuid="a98a2b71-1656-489f-a97a-6ce6d613630b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="229" y="40" width="48" height="20" uuid="ca3a7b8f-687b-4920-a41c-77e56d580755"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="277" y="40" width="76" height="20" uuid="85f35d7b-f9c8-4d56-87a9-eb2351c83582"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="353" y="40" width="202" height="20" uuid="f861ab49-54d1-4907-8e2a-4952a8058de8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="40" width="73" height="20" uuid="e79fc281-700d-476e-a630-5d92a7cef11a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Karyawan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="73" y="40" width="156" height="20" uuid="d197a803-736f-454b-887a-4ac62522789d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="229" y="40" width="48" height="20" uuid="9985ee97-ff37-4e1e-a988-ce1d19803d3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jam]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="40" width="76" height="20" uuid="1e2c089b-374c-4a1d-9599-914ee8f4e62d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="40" width="202" height="20" uuid="6590dea4-1c23-4ee6-ab24-a01d6d7c773b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="73" height="20" uuid="17b6c1b9-0239-4a18-9547-4d4cabf23998"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="73" y="0" width="156" height="20" uuid="1e041d24-1c4c-40d8-a502-807c9525c085"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="229" y="0" width="48" height="20" uuid="8e23cb17-59a3-4c7e-864e-0154b97a481c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="277" y="0" width="76" height="20" uuid="311499b4-0221-4c7f-83b2-9456db9cc9e4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="353" y="0" width="202" height="20" uuid="f34628fa-74b8-4cc4-99a5-34b0301a136d"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="73" height="20" uuid="5104c526-58f6-4fa7-8f0d-28a4e6b123f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_karyawan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="0" width="156" height="20" uuid="156f4c9d-52a6-4e73-aba3-ebf7bb1ffdaf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="202" height="20" uuid="c0eec409-56c2-4137-9d37-d341c0e4c3ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="277" y="0" width="76" height="20" uuid="8ee1c47f-ad94-47ab-85a6-ad3b79cc0745"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date($F{tanggal})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="0" width="48" height="20" uuid="d36b05d1-d220-45d1-8b87-62ba3064fc8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jam}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="124" splitType="Stretch">
+			<staticText>
+				<reportElement x="417" y="30" width="123" height="14" uuid="9925cd98-4266-4998-adb4-069c758cac29"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Mengetahui,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="44" width="123" height="14" uuid="4d46a568-5228-4004-b510-f7f8f54a1b11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Penanggung Jawab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="110" width="123" height="14" uuid="a5c45336-f858-4b6b-b4ad-8916d493eeb9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Ningsih Kumala Sari, M Kom]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="458" y="10" width="97" height="20" uuid="745b8e77-6e72-4ffb-84f6-f6cf0126710a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="417" y="10" width="41" height="20" uuid="0ce1e55c-f1df-4549-88e4-aabe9e9161a0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Jakarta, ]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

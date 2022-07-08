@@ -12,14 +12,26 @@ package jabatan;
 public class Jabatan {
     public  String id;
     public String namaJabatan;
-    public long gajiPokok;
-    public long tunjangan;
+    public double gajiPokok;
+    public double tunjangan;
+    public double gajiPerjam;
     
-    public Jabatan(String id, String namaJabatan, long gajiPokok, long tunjangan) {
+    public Jabatan(
+        String id, 
+        String namaJabatan, 
+        double gajiPokok, 
+        double tunjangan,
+        double gajiPerjam
+        ) {
         this.id = id;
         this.namaJabatan = namaJabatan;
         this.gajiPokok = gajiPokok;
         this.tunjangan = tunjangan;
+        this.gajiPerjam = gajiPerjam;
+    }
+    
+    public double gajiPerJam() {
+        return gajiPokok / 30 / 9;
     }
     
     @Override

@@ -3,35 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package keterlamabatan;
+package cuti;
 
 /**
  *
  * @author Farhan Fadila
  */
-public class Keterlambatan {
+public class Cuti {
     public int id;
     public String idKaryawan;
-    public int jam;
     public long tanggal;
+    public int jumlahHari;
     public String keterangan;
     
-    public Keterlambatan(
-         int id,
-         String idKaryawan,
-         int jam,
-         long tanggal,
-         String keterangan
+    public Cuti(
+        int id,
+        String idKaryawan,
+        long tanggal,
+        int jumlahHari,
+        String keterangan
     ) {
         this.id = id;
         this.idKaryawan = idKaryawan;
-        this.jam = jam;
         this.tanggal = tanggal;
+        this.jumlahHari = jumlahHari;
         this.keterangan = keterangan;
     }
     
+    
     @Override
     public String toString() {
-        return "Keterlambatan(" + id + "," + idKaryawan + "," + jam + "," + tanggal + "," + keterangan  + ")";
+        return "Cuti(" + id + "," + idKaryawan + "," + tanggal + "," + jumlahHari
+                + ","+ keterangan + ")";
     }
 }

@@ -26,10 +26,16 @@ public class JabatanController  extends Koneksi{
     }
     
     
-    public boolean tambah(String id, String nama, long gapok, long tunjangan) {
+    public boolean tambah(
+            String id, 
+            String nama, 
+            double gapok, 
+            double tunjangan,
+            double gajiPerjam
+            ) {
         try {
-          Object[] object = {id, nama, gapok, tunjangan};
-          executeQuery2("INSERT INTO jabatan (id_jabatan, nama, gaji_pokok, tunjangan) VALUES " + objectToString(object));
+          Object[] object = {id, nama, gapok, tunjangan, gajiPerjam};
+          executeQuery2("INSERT INTO jabatan (id_jabatan, nama, gaji_pokok, tunjangan, gaji_perjam) VALUES " + objectToString(object));
           return true;
         } catch(Exception ex) {
             System.out.println("Tambah Jabatan Exception => " + ex);
@@ -38,9 +44,15 @@ public class JabatanController  extends Koneksi{
     }
     
     
-     public boolean edit(String id, String nama, long gapok, long tunjangan) {
+     public boolean edit(
+             String id, 
+             String nama, 
+             double gapok, 
+             double tunjangan, 
+             double gajiPerjam
+     ) {
         try {
-          executeQuery2("UPDATE jabatan SET nama = '" + nama + "', gaji_pokok = '" + gapok + "' , tunjangan = '" + tunjangan + "' WHERE id_jabatan = '" + id + "'");
+          executeQuery2("UPDATE jabatan SET nama = '" + nama + "', gaji_pokok = '" + gapok + "' , tunjangan = '" + tunjangan + "' , gaji_perjam = '" + gajiPerjam + "' WHERE id_jabatan = '" + id + "'");
           return true;
         } catch(Exception ex) {
             System.out.println("Tambah Jabatan Exception => " + ex);
@@ -60,7 +72,7 @@ public class JabatanController  extends Koneksi{
 
             try {
                 while(result.next()) {
-                   temp.add(new Jabatan(result.getString(1), result.getString(2), result.getLong(3), result.getLong(4)));
+                   temp.add(new Jabatan(result.getString(1), result.getString(2), result.getDouble(3), result.getDouble(4), result.getDouble(5)));
                 }
             } catch (SQLException ex) {
                Logger.getLogger(JabatanController.class.getName()).log(Level.SEVERE, null, ex);

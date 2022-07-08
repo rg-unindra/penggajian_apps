@@ -7,11 +7,14 @@ package home;
 
 import authentiocation.AuthenticationController;
 import authentiocation.FormLogin;
+import authentiocation.FormUser;
+import cuti.FormCuti;
 import jabatan.FormJabatan;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import karyawan.FormKaryawan;
 import keterlamabatan.FormKeterlambatan;
+import lembur.FormLembur;
 import penggajian.FormPenggajian;
 
 /**
@@ -39,6 +42,15 @@ public class HomePage extends javax.swing.JFrame {
             break;
             case "penggajian":
                 frame = new FormPenggajian();
+            break;
+            case "lembur":
+                frame = new FormLembur();
+            break;
+            case "user":
+                frame = new FormUser();
+            break;
+            case "cuti":
+                frame = new FormCuti();
             break;
             default:
                 frame = new FormJabatan();
@@ -69,6 +81,10 @@ public class HomePage extends javax.swing.JFrame {
         ic_penggajian = new javax.swing.JLabel();
         ic_lembur = new javax.swing.JLabel();
         lbl_lembur = new javax.swing.JLabel();
+        ic_user = new javax.swing.JLabel();
+        lbl_user = new javax.swing.JLabel();
+        ic_cuti = new javax.swing.JLabel();
+        lbl_cuti = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,18 +183,52 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
+        ic_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_admin.png"))); // NOI18N
+        ic_user.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        ic_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ic_userMousePressed(evt);
+            }
+        });
+
+        lbl_user.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_user.setText("User");
+        lbl_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lbl_userMousePressed(evt);
+            }
+        });
+
+        ic_cuti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ic_cuti.png"))); // NOI18N
+        ic_cuti.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        ic_cuti.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ic_cutiMousePressed(evt);
+            }
+        });
+
+        lbl_cuti.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_cuti.setText("Cuti");
+        lbl_cuti.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lbl_cutiMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(lbl_karyawan)
                     .addComponent(ic_karayawan)
+                    .addComponent(ic_lembur)
+                    .addComponent(lbl_lembur)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(ic_lembur)
-                        .addComponent(lbl_lembur)))
+                        .addComponent(lbl_user)
+                        .addComponent(ic_user)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
@@ -188,14 +238,16 @@ public class HomePage extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(lbl_penggajian)
                             .addComponent(ic_penggajian)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(lbl_terlambat)
-                                .addComponent(ic_terlambat)))
+                            .addComponent(lbl_terlambat)
+                            .addComponent(ic_terlambat))
                         .addGap(72, 72, 72)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(lbl_jabatan)
-                            .addComponent(ic_jabatan))))
-                .addContainerGap(160, Short.MAX_VALUE))
+                            .addComponent(ic_jabatan)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(ic_cuti)
+                                .addComponent(lbl_cuti)))))
+                .addContainerGap(153, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
@@ -222,17 +274,27 @@ public class HomePage extends javax.swing.JFrame {
                         .addComponent(ic_jabatan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_jabatan)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ic_lembur)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ic_lembur)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_lembur))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ic_terlambat)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_terlambat)))
+                        .addGap(41, 41, 41)
+                        .addComponent(ic_user)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_lembur))
+                        .addComponent(lbl_user))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ic_terlambat)
+                        .addComponent(ic_cuti)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_terlambat)))
-                .addGap(149, 149, 149))
+                        .addComponent(lbl_cuti)))
+                .addGap(65, 65, 65))
         );
 
         pack();
@@ -285,12 +347,28 @@ public class HomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_lbl_penggajianMousePressed
 
     private void ic_lemburMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ic_lemburMousePressed
-        // TODO add your handling code here:
+       navigasi("lembur");
     }//GEN-LAST:event_ic_lemburMousePressed
 
     private void lbl_lemburMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_lemburMousePressed
-        // TODO add your handling code here:
+       navigasi("lembur");
     }//GEN-LAST:event_lbl_lemburMousePressed
+
+    private void ic_userMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ic_userMousePressed
+        navigasi("user");
+    }//GEN-LAST:event_ic_userMousePressed
+
+    private void lbl_userMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_userMousePressed
+       navigasi("user");
+    }//GEN-LAST:event_lbl_userMousePressed
+
+    private void ic_cutiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ic_cutiMousePressed
+       navigasi("cuti");
+    }//GEN-LAST:event_ic_cutiMousePressed
+
+    private void lbl_cutiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_cutiMousePressed
+       navigasi("cuti");
+    }//GEN-LAST:event_lbl_cutiMousePressed
 
     /**
      * @param args the command line arguments
@@ -328,17 +406,21 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ic_cuti;
     private javax.swing.JLabel ic_jabatan;
     private javax.swing.JLabel ic_karayawan;
     private javax.swing.JLabel ic_lembur;
     private javax.swing.JLabel ic_penggajian;
     private javax.swing.JLabel ic_terlambat;
+    private javax.swing.JLabel ic_user;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbl_cuti;
     private javax.swing.JLabel lbl_jabatan;
     private javax.swing.JLabel lbl_karyawan;
     private javax.swing.JLabel lbl_lembur;
     private javax.swing.JLabel lbl_penggajian;
     private javax.swing.JLabel lbl_terlambat;
+    private javax.swing.JLabel lbl_user;
     // End of variables declaration//GEN-END:variables
 }
